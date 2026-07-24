@@ -1,0 +1,34 @@
+What is GitHub Actions?
+
+GitHub Actions is a continuous integration and continuous deployment (CI/CD) service built into GitHub. 
+It lets you automate software development workflows whenever certain events occur in your repository.
+
+Where can you find GitHub Actions?
+
+You can find GitHub Actions in the Actions tab of a GitHub repository.
+
+Steps to access GitHub Actions
+Open your repository on GitHub.
+At the top of the repository page, click the Actions tab.
+Here you can:
+View workflow runs.
+Create a new workflow.
+Monitor build and deployment status.
+Re-run failed workflows.
+View workflow logs.
+
+If your repository doesn't have any workflows yet,
+GitHub will suggest starter workflow templates based on your project's language or framework.
+
+https://learn.microsoft.com/en-us/training/github/github-actions-automate-tasks/media/github-actions-automate-development-tasks-01.png
+
+Using open-source GitHub Actions
+Many GitHub Actions are open source and available for anyone who wants to use them. However, just like with any open-source software, you need to carefully check them before using them in your project.
+Similar to recommended community standards with open-source software such as including a README, code of conduct, contributing file, and issue templates,
+you can follow these recommendations when using GitHub Actions:
+
+>> Review the action's action.yml file for inputs, outputs, and to make sure the code does what it says it does.
+>> Check if the action is in the GitHub Marketplace. This check is worthwhile, even if an action doesn't have to be on the GitHub Marketplace to be valid.
+>> Check if the action is verified in the GitHub Marketplace. Verification means that GitHub approved the use of this action. However, you should still review it before using it.
+>> Include the version of the action you're using by specifying a Git ref, SHA, or tag
+
