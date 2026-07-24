@@ -1,0 +1,170 @@
+Continuous integration (CI) is the process of using automation to build and test software each time a developer commits changes to version control in a code base.
+CI helps teams discover issues early in the development process and fix them quickly.
+You can use GitHub Actions to implement CI for code that you maintain in a GitHub repository.
+
+How do I use GitHub Actions to create workflows for CI?
+
+To use GitHub Actions for Continuous Integration (CI), you create a workflow 
+that automatically builds and tests your code whenever changes are pushed or a pull request is opened.
+
+Step 1: Create a workflow file
+        Inside your repository, create the following directory and file:
+
+        .github/workflows/ci.yml
+
+Step 2: Define the workflow
+
+        Example for a Node.js project:
+
+            name: CI
+            on:
+              push:
+                branches:
+                  - main
+              pull_request:
+                branches:
+                  - main
+            
+            jobs:
+              build:
+                runs-on: ubuntu-latest
+            
+                steps:
+                  - name: Checkout repository
+                    uses: actions/checkout@v4
+            
+                  - name: Set up Node.js
+                    uses: actions/setup-node@v4
+                    with:
+                      node-version: 20
+            
+                  - name: Install dependencies
+                    run: npm install
+            
+                  - name: Run tests
+                    run: npm test
+
+Step 3: Commit and push
+        git add .github/workflows/ci.yml
+        git commit -m "Add CI workflow"
+        git push origin main
+
+Step 4: View the workflow
+        Open your GitHub repository.
+        Click the Actions tab.
+        You'll see the workflow running.
+        Click a workflow run to view logs and results.
+
+How it works
+        A developer pushes code or opens a pull request.
+        GitHub Actions starts a runner (such as ubuntu-latest).
+        The repository is checked out.
+        Dependencies are installed.
+        The project is built and tested.
+        GitHub reports whether the workflow passed or failed.
+
+Avoid duplication by using reusable workflows
+
+Reusable workflows in GitHub Actions help you avoid duplicating the same workflow logic across multiple repositories or workflow files. Instead of copying and pasting identical jobs, you define them once and call them wherever needed.
+
+Benefits
+        Reduces duplication of workflow code.
+        Easier maintenance—update the reusable workflow in one place.
+        Ensures consistency across projects.
+        Improves readability of workflow files.
+
+Step 1: Create a reusable workflow
+        
+        Create a workflow in .github/workflows/ and enable it with workflow_call:
+        
+        # .github/workflows/reusable-ci.yml
+        
+        name: Reusable CI
+        
+        on:
+          workflow_call:
+        
+        jobs:
+          test:
+            runs-on: ubuntu-latest
+        
+            steps:
+              - uses: actions/checkout@v4
+              - run: npm install
+              - run: npm test
+
+Step 2: Call the reusable workflow
+        
+        In another workflow:
+        
+        name: Main Workflow
+        
+        on:
+          push:
+        
+        jobs:
+          ci:
+            uses: owner/repository/.github/workflows/reusable-ci.yml@main
+        
+        If the reusable workflow is in the same repository, you can reference it like this:
+        
+        jobs:
+          ci:
+            uses: ./.github/workflows/reusable-ci.yml
+        When to use reusable workflows
+        
+Use them when you have common workflows such as:
+        
+                                              CI (build and test)
+                                              Deployment
+                                              Security scanning
+                                              Code quality checks
+                                              Release automation
+
+Why use reusable workflows?
+These are the benefits of using reusable workflows:
+
+1. Consistency. Teams can follow the same automation standards across all projects.
+2. Efficiency. Instead of copying and pasting steps, you just point to a reusable workflow.
+3. Easier updates. When a process changes, such as by adding a test step, you update it in one location. Then all workflows that use the workflow benefit automatically.
+4. Scalability. Reusable workflows are ideal for platform or DevOps teams that manage multiple services.
+
+Customize workflow templates
+Customizing workflow templates in GitHub Actions allows organizations to provide predefined
+workflow templates that repositories can use as a starting point.This promotes consistency and saves time when creating new workflows.
+
+Here's an example of a customized workflow:
+strategy:
+  matrix:
+    os: [ubuntu-latest, windows-latest]
+    node-version: [16.x, 18.x]
+
+Why customize workflow templates?
+    Maintain consistent CI/CD practices across projects.
+    Reduce the effort needed to create new workflows.
+    Enforce organizational standards and best practices.
+    Simplify onboarding for new developers.
+    How workflow templates work
+
+Workflow templates are stored in a special repository (commonly a .github repository for an organization).
+When users create a new workflow, GitHub can suggest these templates.
+
+In this example, you configure a build matrix
+test:
+  runs-on: ${{ matrix.os }}
+  strategy:
+    matrix:
+      os: [ubuntu-latest, windows-latest]
+      node-version: [16.x, 18.x]
+  steps:
+  - uses: actions/checkout@v3
+  - name: Use Node.js ${{ matrix.node-version }}
+    uses: actions/setup-node@v3
+    with:
+      node-version: ${{ matrix.node-version }}
+  - name: npm install, and test
+    run: |
+      npm install
+      npm test
+    env:
+      CI: true
