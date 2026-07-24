@@ -1,0 +1,37 @@
+An action that performs a git checkout of a repository, this action is part of a step in a workflow.
+
+This step also builds the Node.js code that was checked out. We'll talk about workflows, jobs, and steps in the next section
+
+yml code:
+steps:
+  - uses: actions/checkout@v1
+  - name: npm install and build webpack
+    run: |
+      npm install
+      npm run build
+
+Suppose you want to use a container action to run containerized code. Your action might look like this:
+
+name: "Hello Actions"
+description: "Greet someone"
+author: "octocat@github.com"
+
+inputs:
+    MY_NAME:
+      description: "Who to greet"
+      required: true
+      default: "World"
+
+runs:
+    uses: "docker"
+    image: "Dockerfile"
+
+branding:
+    icon: "mic"
+    color: "purple"
+
+Notice the inputs section. Here, you're getting the value of a variable called MY_NAME. This variable is set in the workflow that runs this action.
+
+In the runs section, notice you specify docker in the uses attribute. When you set this value, you need to provide the path to the Docker image file.
+
+
