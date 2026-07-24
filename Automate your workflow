@@ -24,3 +24,15 @@ GitHub is designed to help teams of developers and DevOps engineers build and de
 Communication: Consider all of the ways that GitHub makes it easy for a team of developers to communicate about the software development project: code reviews in pull requests, GitHub issues, project boards, wikis, notifications, and so on.
 Automation: GitHub Actions lets your team automate workflows at every step in the software-development process, from integration to delivery to deployment. It even lets you automate adding labels to pull requests and checking for stale issues and pull requests.
 When combined, these features have allowed thousands of development teams to effectively decrease the amount of time it takes from their initial idea to deployment.
+
+>> Depending on your organization's goals, you likely need to perform one or more of the following tasks:
+
+1. Ensure the code passes all unit tests.
+2. Perform code quality and compliance checks to make sure the source code meets the organization's standards.
+3. Check the code and its dependencies for known security issues.
+4. Build the code by integrating new source code from (potentially) multiple contributors.
+5. Ensure the software passes integration tests.
+6. Specify the version of the new build.
+7. Deliver the new binaries to the appropriate filesystem location.
+8. Deploy the new binaries to one or more servers.
+9. Determine if any of these tasks don't pass, and report the issue to the proper individual or team for resolution.
