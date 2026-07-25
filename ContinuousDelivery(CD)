@@ -1,0 +1,12 @@
+Continuous Delivery (CD) is the practice of using automation to build, test, configure, and 
+deploy from the build environment all the way to the final production environment.
+
+some modules are:
+
+1. Discover options for triggering a CD GitHub Workflow.
+2. Understand steps to remove workflow artifacts.
+3. Identify important environment protections.
+4. Control workflow execution with job conditionals.
+5. Deploy to Microsoft Azure with a GitHub deploy action.
+6. Store credentials with GitHub Secrets.
+7. Create and destroy Azure resources with GitHub Actions and workflows.
