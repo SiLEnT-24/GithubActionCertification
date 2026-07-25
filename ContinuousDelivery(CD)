@@ -111,3 +111,77 @@ It contains JSON like:
                     Deploy to Azure
                             ↓
                     Application is live
+
+Remove artifacts, create status badges, and configure environment protections
+
+1. Remove Workflow Artifacts
+
+Workflow artifacts are files generated during a workflow (such as build outputs or test reports). 
+You can reduce storage usage by deleting them or limiting how long they're kept.
+
+Set a retention period
+                  - name: Upload build artifact
+                    uses: actions/upload-artifact@v4
+                    with:
+                      name: build-files
+                      path: dist/
+                      retention-days: 7
+
+The artifact will be automatically deleted after 7 days.
+
+Delete artifacts manually
+                      Open your GitHub repository.
+                      Go to Actions.
+                      Select a workflow run.
+                      Scroll to the Artifacts section.
+                      Delete the artifact (if the option is available), or adjust retention settings for future uploads.
+
+2. Create Status Badges
+
+Status badges show whether your workflow is passing or failing.
+
+Badge URL
+https://github.com/OWNER/REPOSITORY/actions/workflows/ci.yml/badge.svg
+
+Example:
+
+![CI](https://github.com/octocat/demo/actions/workflows/ci.yml/badge.svg)
+
+Or make it clickable:
+
+[![CI](https://github.com/octocat/demo/actions/workflows/ci.yml/badge.svg)](https://github.com/octocat/demo/actions/workflows/ci.yml)
+
+Add this Markdown to your repository's README.md.
+
+3. Configure Environment Protections
+
+      GitHub Environments help protect deployments to environments such as staging and production.
+
+Create an environment
+                Go to Repository → Settings → Environments.
+                Click New environment.
+                Name it (for example, production).
+
+
+Configure protection rules
+
+You can enable:
+            Required reviewers (deployment must be approved)
+            Wait timer before deployment
+            Deployment branch restrictions
+            Environment secrets (only available during deployments)
+            Reference the environment in your workflow
+
+
+            jobs:
+              deploy:
+                runs-on: ubuntu-latest
+            
+                environment:
+                  name: production
+            
+                steps:
+                  - uses: actions/checkout@v4
+            
+                  - name: Deploy
+                    run: echo "Deploying to production..."
