@@ -10,3 +10,104 @@ some modules are:
 5. Deploy to Microsoft Azure with a GitHub deploy action.
 6. Store credentials with GitHub Secrets.
 7. Create and destroy Azure resources with GitHub Actions and workflows.
+
+
+How do I use GitHub Actions to deploy to Azure?
+
+GitHub Actions can automatically deploy your application to Azure whenever you push code to GitHub. The general workflow is:
+
+1. Create an Azure resource
+>>Create the service you want to deploy to, such as:
+                                                Azure App Service
+                                                Azure Static Web Apps
+                                                Azure Functions
+                                                Azure Container Apps
+                                                Azure Kubernetes Service (AKS)
+
+2.Create a GitHub repository
+                           Push your application code to GitHub.
+
+3. Configure Azure authentication
+                                Create an Azure Service Principal or use OpenID Connect (OIDC), which is the recommended and more secure method.
+                                Add the required credentials as GitHub repository secrets (if using a service principal).
+
+4. Create a workflow
+                   .Inside your repository, create:
+
+                    .github/workflows/deploy.yml
+
+5. Use GitHub Actions to build and deploy
+
+                                        Example for deploying a Node.js application to Azure App Service:
+                                        
+                                        name: Deploy to Azure
+                                        
+                                        on:
+                                          push:
+                                            branches:
+                                              - main
+                                        
+                                        jobs:
+                                          build-and-deploy:
+                                            runs-on: ubuntu-latest
+                                        
+                                            steps:
+                                              - name: Checkout repository
+                                                uses: actions/checkout@v4
+                                        
+                                              - name: Setup Node.js
+                                                uses: actions/setup-node@v4
+                                                with:
+                                                  node-version: '20'
+                                        
+                                              - name: Install dependencies
+                                                run: npm install
+                                        
+                                              - name: Build application
+                                                run: npm run build
+                                        
+                                              - name: Login to Azure
+                                                uses: azure/login@v2
+                                                with:
+                                                  creds: ${{ secrets.AZURE_CREDENTIALS }}
+                                        
+                                              - name: Deploy to Azure Web App
+                                                uses: azure/webapps-deploy@v3
+                                                with:
+                                                  app-name: my-webapp
+                                                  package: .
+
+
+Required GitHub Secret
+
+If using a service principal, create a repository secret named:
+
+AZURE_CREDENTIALS
+
+It contains JSON like:
+
+{
+  "clientId": "...",
+  "clientSecret": "...",
+  "subscriptionId": "...",
+  "tenantId": "..."
+}
+
+6. Typical CI/CD Flow
+                    Developer pushes code
+                            ↓
+                    GitHub Actions starts
+                            ↓
+                    Checkout repository
+                            ↓
+                    Install dependencies
+                            ↓
+                    Run tests
+                            ↓
+                    Build application
+                            ↓
+                    Authenticate to Azure
+                            ↓
+                    Deploy to Azure
+                            ↓
+                    Application is live
