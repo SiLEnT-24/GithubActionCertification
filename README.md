@@ -1,5 +1,5 @@
 # GithubActionCertification
-<img width="1192" height="666" alt="image" src="https://github.com/user-attachments/assets/688b54b4-7d64-4ab5-ab2b-5ac9f4fbce10" />
+<img width="161" height="162" alt="image" src="https://github.com/user-attachments/assets/ae2e0716-6e15-43e6-a2c9-19619f2b4fe0" />
 
 you prepare for this certification from this site 
 here -> https://learn.microsoft.com/en-us/credentials/certifications/github-actions/?practice-assessment-type=certification
