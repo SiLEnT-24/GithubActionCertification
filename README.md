@@ -1,5 +1,5 @@
 # GithubActionCertification
-<div style="display: flex; justify-content: center;>
+<div align-items: center>
 <img width="161" height="162" alt="Screenshot_2026-07-26_132234-removebg-preview" src="https://github.com/user-attachments/assets/1dfc52b0-f155-479c-9db3-205330ef44a9" />
 </div>
 
